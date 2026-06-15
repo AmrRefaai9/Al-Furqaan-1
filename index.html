@@ -395,7 +395,7 @@ select:focus{border-color:var(--gold-dim);box-shadow:0 0 0 3px var(--gold-pale);
         <div class="ctrl-sep"></div>
         <div class="ctrl-group">
           <span class="ctrl-label">Tafseer</span>
-          <select id="tafseerSelect">
+          <select id="tafseerSelect" onchange="updateActiveTafseers()">
             <option value="1">التفسير الميسر</option>
             <option value="2">تفسير الجلالين</option>
             <option value="3">تفسير ابن كثير</option>
