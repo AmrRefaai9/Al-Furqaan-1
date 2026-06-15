@@ -1087,7 +1087,23 @@ function fmtTime(s) {
   const sec = Math.floor(s % 60);
   return `${m}:${sec.toString().padStart(2, '0')}`;
 }
-
+/* ── UPDATE TAFSEERS (ADD NEW CODE HERE) ───────────────────────── */
+function updateActiveTafseers() {
+  // Find all currently open Tafsir boxes on the screen
+  const visibleBoxes = document.querySelectorAll('.tafseer-box.visible');
+  
+  visibleBoxes.forEach(box => {
+    // Extract the verse ID (vid) from the element's ID (e.g., "tf-2-255" becomes "2-255")
+    const vid = box.id.replace('tf-', '');
+    const [surah, ayah] = vid.split('-');
+    
+    // Close the box visually to trigger a fresh load state
+    box.classList.remove('visible');
+    
+    // Call the existing toggle function to re-fetch with the new select value
+    toggleTafseer(vid, parseInt(surah), parseInt(ayah));
+  });
+}
 /* ════════════════════════════════════════════════
    TAFSEER
 ════════════════════════════════════════════════ */
