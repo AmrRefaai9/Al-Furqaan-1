@@ -395,9 +395,13 @@ select:focus{border-color:var(--gold-dim);box-shadow:0 0 0 3px var(--gold-pale);
         <div class="ctrl-sep"></div>
         <div class="ctrl-group">
           <span class="ctrl-label">Tafseer</span>
-         <select id="tafseerSelect" onchange="updateActiveTafseers()">
-          <option value="ar.jalalayn">تفسير الجلالين (Jalalayn)</option>
-          <option value="ar.muyassar">التفسير الميسر (Muyassar)</option>
+        <select id="tafseerSelect" onchange="updateActiveTafseers()">
+          <option value="ar.jalalayn">تفسير الجلالين</option>
+          <option value="ar.muyassar">التفسير الميسر</option>
+          <option value="ar.waseet">التفسير الوسيط (طنطاوي)</option>
+          <option value="ar.baghawi">تفسير البغوي</option>
+          <option value="ar.qurtubi">تفسير القرطبي</option>
+          <option value="ar.ibnkathir">تفسير ابن كثير</option>
         </select>
         </div>
         <div class="reciter-bar">
@@ -1119,9 +1123,11 @@ async function toggleTafseer(vid, surah, ayah) {
   const textEl = document.getElementById('tf-text-' + vid);
 
   // Update title based on selection
+  // Automatically extract the Arabic text from the chosen <option> element
   if (box.querySelector('.tafseer-title')) {
-    box.querySelector('.tafseer-title').textContent = 
-      edition === 'ar.muyassar' ? 'التفسير الميسر' : 'تفسير الجلالين';
+    const selectEl = document.getElementById('tafseerSelect');
+    const chosenName = selectEl.options[selectEl.selectedIndex].text;
+    box.querySelector('.tafseer-title').textContent = chosenName;
   }
 
   // Use cached text if available
