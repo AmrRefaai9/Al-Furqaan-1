@@ -395,13 +395,10 @@ select:focus{border-color:var(--gold-dim);box-shadow:0 0 0 3px var(--gold-pale);
         <div class="ctrl-sep"></div>
         <div class="ctrl-group">
           <span class="ctrl-label">Tafseer</span>
-          <select id="tafseerSelect" onchange="updateActiveTafseers()">
-            <option value="1">التفسير الميسر</option>
-            <option value="2">تفسير الجلالين</option>
-            <option value="3">تفسير ابن كثير</option>
-            <option value="5">تفسير القرطبي</option>
-            <option value="16">تفسير الطبري</option>
-          </select>
+         <select id="tafseerSelect" onchange="updateActiveTafseers()">
+          <option value="ar.jalalayn">تفسير الجلالين (Jalalayn)</option>
+          <option value="ar.muyassar">التفسير الميسر (Muyassar)</option>
+        </select>
         </div>
         <div class="reciter-bar">
           <span class="reciter-bar-label">Reciter · القارئ</span>
@@ -1110,62 +1107,47 @@ function updateActiveTafseers() {
 const tafseerCache = {};
 
 async function toggleTafseer(vid, surah, ayah) {
-
   const box = document.getElementById('tf-' + vid);
-
-  if (box.classList.contains('visible')) {
-    box.classList.remove('visible');
-    return;
+  if (box.classList.contains('visible')) { 
+    box.classList.remove('visible'); 
+    return; 
   }
-
   box.classList.add('visible');
 
-  const selected = document.getElementById('tafseerSelect').value;
-  const tafsirId = TAFSIR_MAP[selected];
-
-  const key = `${tafsirId}-${surah}-${ayah}`;
-
+  const edition = document.getElementById('tafseerSelect').value || 'ar.jalalayn';
+  const key = `${edition}-${surah}-${ayah}`;
   const textEl = document.getElementById('tf-text-' + vid);
 
-  if (tafseerCache[key]) {
-    textEl.innerHTML = tafseerCache[key];
-    return;
+  // Update title based on selection
+  if (box.querySelector('.tafseer-title')) {
+    box.querySelector('.tafseer-title').textContent = 
+      edition === 'ar.muyassar' ? 'التفسير الميسر' : 'تفسير الجلالين';
   }
 
-  textEl.innerHTML = 'جار التحميل…';
-
+  // Use cached text if available
+  if (tafseerCache[key]) { 
+    textEl.textContent = tafseerCache[key]; 
+    return; 
+  }
+  
+  textEl.textContent = 'جاري التحميل…';
+  
   try {
-
-    const url =
-      `${TAFSEER}/${tafsirId}?verse_key=${surah}:${ayah}`;
-
-    const res = await fetch(url);
+    // Calling the highly stable AlQuran Cloud endpoint
+    const res = await fetch(`https://api.alquran.cloud/v1/ayah/${surah}:${ayah}/${edition}`);
     const data = await res.json();
-
-    console.log(data);
-
-    let text = 'لا يوجد تفسير لهذه الآية';
-
-    if (
-      data.tafsirs &&
-      data.tafsirs.length > 0
-    ) {
-      text = data.tafsirs[0].text;
+    
+    if (data.code === 200 && data.data && data.data.text) {
+      const text = data.data.text;
+      tafseerCache[key] = text;
+      textEl.textContent = text;
+    } else {
+      textEl.textContent = 'لا يوجد تفسير متاح لهذه الآية حالياً.';
     }
-
-    tafseerCache[key] = text;
-
-    textEl.innerHTML = text;
-
-  } catch (err) {
-
-    console.error(err);
-
-    textEl.innerHTML =
-      'تعذر تحميل التفسير';
-
+  } catch (error) {
+    console.error("Tafseer Fetch Error:", error);
+    textEl.textContent = 'تعذّر تحميل التفسير. يرجى التحقق من اتصالك بالإنترنت.';
   }
-
 }
 
 /* ════════════════════════════════════════════════
