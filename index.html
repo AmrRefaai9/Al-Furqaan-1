@@ -325,18 +325,27 @@ select:focus{border-color:var(--gold-dim);box-shadow:0 0 0 3px var(--gold-pale);
 .rare-verse-tag{padding:.2rem .6rem;background:var(--emerald-d);border:1px solid var(--emerald);border-radius:14px;font-size:.72rem;color:var(--gold);cursor:pointer;transition:background .13s,color .13s;font-family:'Inter',sans-serif;white-space:nowrap;}
 .rare-verse-tag:hover{background:var(--emerald);color:#fff;}
 .rare-card.playing .rare-verse-tag{background:var(--emerald);color:#fff;}
-.rare-verses{margin-top:.7rem;display:none;max-height:320px;overflow-y:auto;border-top:1px solid var(--border);padding-top:.6rem;}
+.rare-verses{margin-top:.8rem;display:none;max-height:520px;overflow-y:auto;border-top:1px solid var(--border);padding-top:.5rem;}
 .rare-verses.visible{display:block;animation:fadeSlide .25s var(--ease);}
 .rare-verses::-webkit-scrollbar{width:3px;}
 .rare-verses::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
-.rare-verses-loading{text-align:center;padding:1rem;color:var(--text-3);font-size:.78rem;}
-.rare-verses-loading .spinner{width:18px;height:18px;border-width:2px;margin-bottom:.3rem;}
-.rare-verse-item{display:flex;gap:.6rem;align-items:flex-start;padding:.55rem .4rem;border-bottom:1px solid var(--border);transition:background .12s;}
-.rare-verse-item:last-child{border-bottom:none;}
-.rare-verse-item:hover{background:var(--bg2);border-radius:var(--r);}
-.rare-verse-num{flex-shrink:0;width:24px;height:24px;background:var(--emerald-d);border:1px solid var(--emerald);color:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:700;}
-.rare-verse-text{font-family:'Amiri Quran','Noto Naskh Arabic',serif;font-size:1.15rem;line-height:2;color:var(--text);direction:rtl;text-align:right;flex:1;}
-.rare-verse-actions{display:flex;gap:.3rem;flex-shrink:0;padding-top:.2rem;}
+.rare-verses-loading{text-align:center;padding:1.5rem;color:var(--text-3);font-size:.86rem;}
+.rare-verses-loading .spinner{width:22px;height:22px;border-width:2px;margin-bottom:.5rem;}
+.rare-verse-item{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-lg);margin-bottom:.75rem;padding:1.3rem 1.5rem;transition:border-color .15s,box-shadow .15s;}
+.rare-verse-item:hover{border-color:var(--border-h);box-shadow:var(--shadow-sm);}
+.rare-verse-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.7rem;gap:.5rem;}
+.rare-verse-num{flex-shrink:0;width:32px;height:32px;background:var(--emerald-d);border:1px solid var(--emerald);color:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;}
+.rare-verse-ref{font-size:.7rem;color:var(--text-3);letter-spacing:.05em;}
+.rare-verse-actions{display:flex;gap:.3rem;flex-shrink:0;}
+.rare-verse-actions .icon-btn{padding:.32rem .7rem;font-size:.74rem;}
+.rare-verse-ar{font-family:'Amiri Quran','Noto Naskh Arabic',serif;font-size:1.9rem;line-height:2.3;color:var(--text);direction:rtl;text-align:right;margin-bottom:.6rem;letter-spacing:.01em;padding:.4rem 0;}
+.rare-verse-item:hover .rare-verse-ar{color:#f0e8d0;}
+.rare-verse-en{font-size:.92rem;color:var(--text-2);line-height:1.8;direction:ltr;text-align:left;border-top:1px solid var(--border);padding-top:.6rem;margin-top:.15rem;}
+.rare-verse-tafseer{margin-top:.7rem;display:none;animation:fadeSlide .2s var(--ease);}
+.rare-verse-tafseer.visible{display:block;}
+.rare-verse-tafseer-head{display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem;}
+.rare-verse-tafseer-select{padding:.35rem .8rem .35rem 1.8rem;border:1px solid var(--border);border-radius:var(--r);font-size:.75rem;font-family:'Inter',sans-serif;background:var(--bg3);color:var(--text);cursor:pointer;outline:none;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='4'%3E%3Cpath d='M0 0l4 4L8 0z' fill='%235a5648'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left .6rem center;}
+.rare-verse-tafseer-box{padding:1rem 1.2rem;background:var(--bg1);border-radius:var(--r);border-right:3px solid var(--emerald);font-family:'Noto Naskh Arabic','Amiri',serif;font-size:.95rem;line-height:2.15;color:var(--text);direction:rtl;text-align:right;}
 .rare-audio{width:100%;height:36px;border-radius:var(--r);}
 .rare-audio::-webkit-media-controls-panel{background:var(--bg2);}
 .rare-player-bar{display:none;align-items:center;gap:.85rem;padding:.9rem 1.25rem;background:linear-gradient(90deg,var(--emerald-d),var(--bg2));border:1px solid var(--emerald);border-radius:var(--r-lg);margin-bottom:1.25rem;direction:ltr;}
@@ -442,12 +451,13 @@ select:focus{border-color:var(--gold-dim);box-shadow:0 0 0 3px var(--gold-pale);
         <div class="ctrl-sep"></div>
         <div class="ctrl-group">
           <span class="ctrl-label">Tafseer</span>
-          <select id="tafseerSelect">
-            <option value="1">التفسير الميسر</option>
-            <option value="2">تفسير الجلالين</option>
-            <option value="3">تفسير ابن كثير</option>
-            <option value="5">تفسير القرطبي</option>
-            <option value="16">تفسير الطبري</option>
+          <select id="tafseerSelect" onchange="updateOpenTafseers()">
+            <option value="ar.muyassar">التفسير الميسر</option>
+            <option value="ar.jalalayn">تفسير الجلالين</option>
+            <option value="ar.ibnkathir">تفسير ابن كثير</option>
+            <option value="ar.qurtubi">تفسير القرطبي</option>
+            <option value="ar.tabari">تفسير الطبري</option>
+            <option value="ar.baghawi">تفسير البغوي</option>
           </select>
         </div>
         <div class="reciter-bar">
@@ -1239,10 +1249,9 @@ async function toggleTafseer(vid, surah, ayah) {
 
   box.classList.add('visible');
 
-  const selected = document.getElementById('tafseerSelect').value;
-  const tafsirId = TAFSIR_MAP[selected];
+  const edition = document.getElementById('tafseerSelect').value;
 
-  const key = `${tafsirId}-${surah}-${ayah}`;
+  const key = `${edition}-${surah}-${ayah}`;
 
   const textEl = document.getElementById('tf-text-' + vid);
 
@@ -1254,37 +1263,45 @@ async function toggleTafseer(vid, surah, ayah) {
   textEl.innerHTML = 'جار التحميل…';
 
   try {
-
-    const url =
-      `${TAFSEER}/${tafsirId}?verse_key=${surah}:${ayah}`;
-
-    const res = await fetch(url);
+    const res = await fetch(`https://api.alquran.cloud/v1/ayah/${surah}:${ayah}/${edition}`);
     const data = await res.json();
-
-    console.log(data);
-
-    let text = 'لا يوجد تفسير لهذه الآية';
-
-    if (
-      data.tafsirs &&
-      data.tafsirs.length > 0
-    ) {
-      text = data.tafsirs[0].text;
+    if (data.code === 200 && data.data && data.data.text) {
+      const text = data.data.text;
+      tafseerCache[key] = text;
+      textEl.innerHTML = text;
+    } else {
+      textEl.innerHTML = 'لا يوجد تفسير لهذه الآية';
     }
-
-    tafseerCache[key] = text;
-
-    textEl.innerHTML = text;
-
   } catch (err) {
-
-    console.error(err);
-
-    textEl.innerHTML =
-      'تعذر تحميل التفسير';
-
+    textEl.innerHTML = 'تعذر تحميل التفسير';
   }
 
+}
+
+function updateOpenTafseers() {
+  document.querySelectorAll('.tafseer-box.visible').forEach(box => {
+    const vid = box.id.replace('tf-', '');
+    const [surah, ayah] = vid.split('-');
+    const edition = document.getElementById('tafseerSelect').value;
+    const cacheKey = `${edition}-${surah}-${ayah}`;
+    const textEl = document.getElementById('tf-text-' + vid);
+    if (tafseerCache[cacheKey]) {
+      textEl.innerHTML = tafseerCache[cacheKey];
+      return;
+    }
+    textEl.innerHTML = 'جار التحميل…';
+    fetch(`https://api.alquran.cloud/v1/ayah/${surah}:${ayah}/${edition}`)
+      .then(r => r.json())
+      .then(data => {
+        if (data.code === 200 && data.data && data.data.text) {
+          tafseerCache[cacheKey] = data.data.text;
+          textEl.innerHTML = data.data.text;
+        } else {
+          textEl.innerHTML = 'لا يوجد تفسير لهذه الآية';
+        }
+      })
+      .catch(() => { textEl.innerHTML = 'تعذر تحميل التفسير'; });
+  });
 }
 
 /* ════════════════════════════════════════════════
@@ -1615,6 +1632,7 @@ function rarePlayerGoToSurah(surahNum, ayahNum) {
 }
 
 const rareVersesCache = {};
+const rareTafseerCache = {};
 
 async function showRareVerses(idx) {
   const r = RARE_RECITATIONS[idx];
@@ -1636,11 +1654,22 @@ async function showRareVerses(idx) {
 
   if (!rareVersesCache[cacheKey]) {
     try {
-      const res = await fetch(`${ALQURAN}/surah/${r.surahNum}/quran-uthmani`);
-      const json = await res.json();
-      if (json.code !== 200) throw new Error('API error');
-      const allAyahs = json.data.ayahs;
-      const verses = allAyahs.filter(a => a.numberInSurah >= r.ayahStart && a.numberInSurah <= r.ayahEnd);
+      const [arRes, enRes] = await Promise.all([
+        fetch(`${ALQURAN}/surah/${r.surahNum}/quran-uthmani`),
+        fetch(`${ALQURAN}/surah/${r.surahNum}/en.sahih`)
+      ]);
+      const arJson = await arRes.json();
+      const enJson = await enRes.json();
+      if (arJson.code !== 200) throw new Error('API error');
+      const arAyahs = arJson.data.ayahs;
+      const enAyahs = enJson.code === 200 ? enJson.data.ayahs : [];
+      const verses = arAyahs
+        .filter(a => a.numberInSurah >= r.ayahStart && a.numberInSurah <= r.ayahEnd)
+        .map((a, i) => ({
+          num: a.numberInSurah,
+          ar: a.text,
+          en: enAyahs.find(e => e.numberInSurah === a.numberInSurah)?.text || ''
+        }));
       rareVersesCache[cacheKey] = verses;
     } catch (e) {
       container.innerHTML = `<div class="rare-verses-loading" style="color:#d06060">تعذر تحميل الآيات</div>`;
@@ -1652,30 +1681,83 @@ async function showRareVerses(idx) {
   const meta = SURAH_META[r.surahNum - 1];
 
   container.innerHTML = verses.map(v => `
-    <div class="rare-verse-item">
-      <span class="rare-verse-num">${v.numberInSurah}</span>
-      <div class="rare-verse-text">${v.text}</div>
-      <div class="rare-verse-actions">
-        <button class="icon-btn" onclick="rarePlayVerse(${r.surahNum},${v.numberInSurah})" id="rvplay-${idx}-${v.numberInSurah}">▶</button>
+    <div class="rare-verse-item" id="rvi-${idx}-${v.num}">
+      <div class="rare-verse-head">
+        <span class="rare-verse-num">${v.num}</span>
+        <span class="rare-verse-ref">${meta[1]} · ${r.surahNum}:${v.num}</span>
+        <div class="rare-verse-actions">
+          <button class="icon-btn" onclick="copyRareVerse(${r.surahNum},${v.num},${idx})" title="Copy">⧉</button>
+          <button class="icon-btn" onclick="toggleRareTafseer(${r.surahNum},${v.num},${idx})" title="Tafseer">تفسير</button>
+        </div>
+      </div>
+      <div class="rare-verse-ar">${v.ar}</div>
+      ${v.en ? `<div class="rare-verse-en">${v.en}</div>` : ''}
+      <div class="rare-verse-tafseer" id="rvt-${idx}-${v.num}">
+        <div class="rare-verse-tafseer-head">
+          <select class="rare-verse-tafseer-select" id="rvts-${idx}-${v.num}" onchange="loadRareTafseer(${r.surahNum},${v.num},${idx})">
+            <option value="ar.jalalayn">تفسير الجلالين</option>
+            <option value="ar.muyassar">التفسير الميسر</option>
+            <option value="ar.tabari">تفسير الطبري</option>
+            <option value="ar.ibnkathir">تفسير ابن كثير</option>
+            <option value="ar.qurtubi">تفسير القرطبي</option>
+            <option value="ar.baghawi">تفسير البغوي</option>
+          </select>
+        </div>
+        <div class="rare-verse-tafseer-box" id="rvtb-${idx}-${v.num}">جار التحميل…</div>
       </div>
     </div>
   `).join('');
 }
 
-function rarePlayVerse(surah, ayah) {
-  // Stop rare audio if playing
-  rarePlayerStop();
-  // Stop other single-verse audio
-  if (currentAudio) { currentAudio.pause(); currentAudio = null; }
-  if (currentAudioBtn) { currentAudioBtn.classList.remove('playing'); currentAudioBtn.textContent = '▶ Audio'; currentAudioBtn = null; }
+async function toggleRareTafseer(surah, ayah, idx) {
+  const box = document.getElementById(`rvt-${idx}-${ayah}`);
+  if (box.classList.contains('visible')) {
+    box.classList.remove('visible');
+    return;
+  }
+  box.classList.add('visible');
+  loadRareTafseer(surah, ayah, idx);
+}
 
-  const s = String(surah).padStart(3, '0');
-  const a = String(ayah).padStart(3, '0');
-  const url = `${EVERYAYAH}/${selectedReciter.everyayah}/${s}${a}.mp3`;
-  currentAudio = new Audio(url);
-  currentAudio.play().catch(() => showToast('Audio unavailable'));
-  showToast(SURAH_META[surah - 1][1] + ' · ' + ayah);
-  currentAudio.onended = () => { currentAudio = null; };
+async function loadRareTafseer(surah, ayah, idx) {
+  const textEl = document.getElementById(`rvtb-${idx}-${ayah}`);
+  const selectEl = document.getElementById(`rvts-${idx}-${ayah}`);
+  if (!textEl || !selectEl) return;
+
+  const edition = selectEl.value;
+  const cacheKey = `${edition}-${surah}-${ayah}`;
+
+  if (rareTafseerCache[cacheKey]) {
+    textEl.innerHTML = rareTafseerCache[cacheKey];
+    return;
+  }
+
+  textEl.innerHTML = 'جار التحميل…';
+
+  try {
+    const res = await fetch(`https://api.alquran.cloud/v1/ayah/${surah}:${ayah}/${edition}`);
+    const data = await res.json();
+    if (data.code === 200 && data.data && data.data.text) {
+      const text = data.data.text;
+      rareTafseerCache[cacheKey] = text;
+      textEl.innerHTML = text;
+    } else {
+      textEl.innerHTML = 'لا يوجد تفسير متاح لهذه الآية.';
+    }
+  } catch (e) {
+    textEl.innerHTML = 'تعذّر تحميل التفسير.';
+  }
+}
+
+function copyRareVerse(surah, ayah, idx) {
+  const cacheKey = `${surah}_${RARE_RECITATIONS[idx].ayahStart}_${RARE_RECITATIONS[idx].ayahEnd}`;
+  const verses = rareVersesCache[cacheKey];
+  if (!verses) return;
+  const v = verses.find(x => x.num === ayah);
+  if (!v) return;
+  const meta = SURAH_META[surah - 1];
+  navigator.clipboard.writeText(`${v.ar}\n\n${v.en}\n\n— ${meta[1]} (${meta[0]}) ${surah}:${ayah}`)
+    .then(() => showToast('Copied'));
 }
 
 /* ════════════════════════════════════════════════
