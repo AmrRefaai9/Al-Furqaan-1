@@ -301,6 +301,44 @@ select:focus{border-color:var(--gold-dim);box-shadow:0 0 0 3px var(--gold-pale);
 ::-webkit-scrollbar-thumb{background:var(--bg3);border-radius:2px;}
 ::-webkit-scrollbar-thumb:hover{background:var(--text-3);}
 
+
+.rare-grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+gap:1rem;
+}
+
+.rare-card{
+background:var(--bg1);
+border:1px solid var(--border);
+border-radius:var(--r);
+padding:1rem;
+transition:.15s;
+}
+
+.rare-card:hover{
+border-color:var(--gold-dim);
+transform:translateY(-2px);
+}
+
+.rare-title{
+font-family:'Amiri',serif;
+font-size:1.2rem;
+color:var(--gold);
+margin-bottom:.35rem;
+}
+
+.rare-sub{
+color:var(--text-2);
+font-size:.8rem;
+margin-bottom:.8rem;
+}
+
+.rare-audio{
+width:100%;
+}
+
+  
 @media(max-width:768px){
   .browser-layout{grid-template-columns:1fr;}
   .surah-list{position:static;max-height:270px;border-right:none;border-bottom:1px solid var(--border);}
@@ -361,6 +399,7 @@ select:focus{border-color:var(--gold-dim);box-shadow:0 0 0 3px var(--gold-pale);
   <button class="tab" onclick="switchTab('search')">Search · بحث</button>
   <button class="tab" onclick="switchTab('bookmarks')">Bookmarks · محفوظات</button>
   <button class="tab" onclick="switchTab('explore')">Explore · استكشاف</button>
+  <button class="tab" onclick="switchTab('rare')">Rare Recitations · النوادر</button>
 </div>
 
 <!-- ════ BROWSE ════ -->
@@ -499,9 +538,18 @@ select:focus{border-color:var(--gold-dim);box-shadow:0 0 0 3px var(--gold-pale);
   </div>
 </div>
 
+<!-- ════ RARE RECITATIONS ════ -->
+<div id="panel-rare" class="panel">
+  <div class="explore-panel">
+    <h2 class="panel-heading" style="margin-bottom:1.5rem">
+      Rare Recitations · التلاوات النادرة
+    </h2>
+    <div class="rare-grid" id="rareGrid"></div>
+  </div>
+</div>
 <div class="toast" id="toast"></div>
-
-<script>
+<script> 
+  
 /* ════════════════════════════════════════════════
    CONSTANTS & DATA
 ════════════════════════════════════════════════ */
@@ -703,6 +751,51 @@ const JUZ_AR = ['الأول','الثاني','الثالث','الرابع','ال�
   "16": 169  // الطبري (change if needed)
 };
 
+const RARE_RECITATIONS = [
+{
+name: 'المنشاوي — بغداد 1965',
+
+```
+info: 'سورة إبراهيم · الآيات 23 - 41 · تسجيل نادر',
+
+url: 'https://archive.org/download/1958_20260617/%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A5%D8%A8%D8%B1%D8%A7%D9%87%D9%8A%D9%85%2023-%2041%20%D9%85%D9%86%20%D8%A7%D9%84%D8%AA%D8%B3%D8%AC%D9%8A%D9%84%D8%A7%D8%AA%20%D8%A7%D9%84%D9%86%D8%A7%D8%AF%D8%B1%D8%A9%20%D9%84%D9%84%D8%B4%D9%8A%D8%AE%20%D8%A7%D9%84%D9%85%D9%86%D8%B4%D8%A7%D9%88%D9%89%20%D8%A8%D8%BA%D8%AF%D8%A7%D8%AF%20%D8%A7%D9%84%D8%B9%D8%B1%D8%A7%D9%82%20%D8%B9%D8%A7%D9%85%201965.mp3'
+```
+
+}
+];
+
+function renderRareRecitations(){
+
+document.getElementById('rareGrid').innerHTML =
+
+```
+RARE_RECITATIONS.map(r => `
+
+  <div class="rare-card">
+
+    <div class="rare-title">
+      ${r.name}
+    </div>
+
+    <div class="rare-sub">
+      ${r.info}
+    </div>
+
+    <audio class="rare-audio" controls preload="none">
+
+      <source src="${r.url}" type="audio/mpeg">
+
+    </audio>
+
+  </div>
+
+`).join('');
+```
+
+}
+  
+  
+
 /* ════════════════════════════════════════════════
    STATE
 ════════════════════════════════════════════════ */
@@ -734,6 +827,7 @@ window.addEventListener('DOMContentLoaded', () => {
   renderReciterChips();
   renderJuzGrid();
   renderBookmarks();
+  renderRareRecitations();
 });
 window.addEventListener('firebase-ready', () => { fbConnected = true; syncWithFirebase(); });
 
@@ -825,7 +919,7 @@ function switchTab(name) {
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab, nav button').forEach(t => t.classList.remove('active'));
   document.getElementById('panel-' + name).classList.add('active');
-  const tabs = ['browse', 'search', 'bookmarks', 'explore'];
+  const tabs = ['browse', 'search', 'bookmarks', 'explore', 'rare'];
   document.querySelectorAll('.tab').forEach((t, i) => { if (tabs[i] === name) t.classList.add('active'); });
   document.querySelectorAll('nav button').forEach((t, i) => { if (tabs[i] === name) t.classList.add('active'); });
   if (name === 'bookmarks') renderBookmarks();
