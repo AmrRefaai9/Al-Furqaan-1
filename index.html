@@ -1,19 +1,9 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>الفرقان · Al-Furqaan</title>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HZ8606PLR7"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-HZ8606PLR7');
-</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Amiri+Quran&family=Inter:wght@300;400;500;600&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -302,16 +292,88 @@ select:focus{border-color:var(--gold-dim);box-shadow:0 0 0 3px var(--gold-pale);
 ::-webkit-scrollbar-thumb:hover{background:var(--text-3);}
 
 @media(max-width:768px){
-  .browser-layout{grid-template-columns:1fr;}
-  .surah-list{position:static;max-height:270px;border-right:none;border-bottom:1px solid var(--border);}
-  .verse-panel{padding:1rem;}
-  .verse-arabic{font-size:1.55rem;padding:1.1rem 1.1rem .75rem;}
+  header{padding:0 1rem;height:52px;}
+  .logo-ar{font-size:1.2rem;}
+  .logo-sub{font-size:.55rem;}
+  .logo-rule{height:20px;}
   nav{display:none;}
-  .surah-player{flex-wrap:wrap;}
+  .hero{padding:2.5rem 1rem 2rem;}
+  .bismillah{font-size:1.6rem;margin-bottom:1.2rem;}
+  .hero-name-ar{font-size:1.4rem;}
+  .hero-name-en{font-size:.58rem;letter-spacing:.14em;}
+  .hero-divider{max-width:140px;margin:.6rem auto;}
+  .tab-bar{top:52px;padding:0 .5rem;}
+  .tab{padding:.75rem .9rem;font-size:.72rem;}
+  .browser-layout{grid-template-columns:1fr;}
+  .surah-list{position:static;max-height:220px;border-right:none;border-bottom:1px solid var(--border);}
+  .surah-item{padding:.55rem .7rem;}
+  .si-ar{font-size:.95rem;}
+  .si-en{font-size:.6rem;}
+  .verse-panel{padding:.8rem;}
+  .reader-controls{padding:.7rem .8rem;gap:.4rem;}
+  .ctrl-label{font-size:.6rem;}
+  select{padding:.35rem .6rem .35rem 1.5rem;font-size:.72rem;}
+  .reciter-bar{gap:.25rem;}
+  .reciter-chip{font-size:.66rem;padding:.25rem .55rem;}
+  .surah-player{padding:.7rem .8rem;gap:.6rem;}
+  .player-btn{width:38px;height:38px;font-size:.95rem;}
+  .player-title{font-size:.75rem;}
+  .player-verse-tag{font-size:.62rem;}
+  .player-icon-btn{padding:.25rem .45rem;font-size:.65rem;}
+  .player-vol{width:55px;}
+  .surah-header{padding:1.2rem 1rem 1rem;}
+  .surah-header h2{font-size:1.8rem;}
+  .basmala-display{font-size:1.4rem;}
+  .verse-card{margin-bottom:.55rem;}
+  .verse-arabic{font-size:1.4rem;padding:1rem .9rem .6rem;line-height:2;}
+  .verse-translation{font-size:.8rem;padding:.4rem .9rem .7rem;}
+  .verse-footer{padding:.5rem .7rem;gap:.4rem;}
+  .verse-num{width:24px;height:24px;font-size:.62rem;}
+  .verse-actions{gap:.2rem;}
+  .icon-btn{padding:.22rem .45rem;font-size:.62rem;}
+  .tafseer-box{margin:0 .9rem .6rem;padding:.7rem .8rem;font-size:.82rem;}
+  .note-box{margin:0 .9rem .6rem;}
+  .search-panel{padding:1rem;}
+  .search-big input{padding:.7rem .8rem;font-size:.82rem;}
+  .search-big button{padding:0 1rem;font-size:.78rem;}
+  .quick-tag{font-size:.66rem;padding:.25rem .65rem;}
+  .search-result{padding:.85rem 1rem;}
+  .result-ar{font-size:1.2rem;}
+  .result-en{font-size:.75rem;}
+  .bookmarks-panel{padding:1rem;}
+  .bm-item{padding:.85rem 1rem;gap:.7rem;}
+  .bm-ar{font-size:1.15rem;}
+  .explore-panel{padding:1rem;}
+  .stats-grid{grid-template-columns:repeat(2,1fr);gap:.6rem;}
+  .stat-card{padding:1.1rem .9rem;}
+  .stat-num{font-size:1.6rem;}
+  .stat-label{font-size:.6rem;}
+  .juz-grid{grid-template-columns:repeat(3,1fr);gap:.4rem;}
+  .juz-card{padding:.65rem;}
+  .juz-num{font-size:1.1rem;}
+  .juz-ar{font-size:.78rem;}
+  .rare-grid{grid-template-columns:1fr;}
+  .rare-card{padding:.85rem;}
+  .rare-player-bar{flex-wrap:wrap;padding:.7rem .8rem;gap:.6rem;}
+  .rare-player-bar .player-btn{width:36px;height:36px;}
+  .rare-player-bar .player-title{font-size:.75rem;}
+  .rare-player-bar .player-vol{width:50px;}
+  .rare-verse-item{padding:1rem 1.1rem;}
+  .rare-verse-ar{font-size:1.5rem;line-height:2.1;}
+  .rare-verse-en{font-size:.82rem;}
+  .rare-verse-tafseer-box{font-size:.85rem;padding:.8rem .9rem;}
 }
 @media(max-width:480px){
-  .stats-grid{grid-template-columns:repeat(2,1fr);}
-  .hero{padding:3rem 1.25rem 2.75rem;}
+  .hero{padding:2rem .75rem 1.5rem;}
+  .bismillah{font-size:1.3rem;}
+  .hero-name-ar{font-size:1.2rem;}
+  .hero-ornament{margin-bottom:1rem;}
+  .stats-grid{grid-template-columns:repeat(2,1fr);gap:.45rem;}
+  .juz-grid{grid-template-columns:repeat(2,1fr);}
+  .surah-list{max-height:190px;}
+  .verse-arabic{font-size:1.25rem;}
+  .search-big{flex-direction:column;}
+  .search-big button{width:100%;}
 }
 
 /* ── RARE RECITATIONS ── */
@@ -363,10 +425,6 @@ select:focus{border-color:var(--gold-dim);box-shadow:0 0 0 3px var(--gold-pale);
 .rare-player-bar .player-icon-btn{background:none;border:1px solid var(--border);border-radius:6px;padding:.3rem .55rem;cursor:pointer;font-size:.7rem;color:var(--text-3);transition:.13s;font-family:'Inter',sans-serif;}
 .rare-player-bar .player-icon-btn:hover{border-color:var(--border-h);color:var(--text);}
 .rare-player-bar .player-vol{width:65px;accent-color:var(--emerald);cursor:pointer;}
-@media(max-width:768px){
-  .rare-grid{grid-template-columns:1fr;}
-  .rare-player-bar{flex-wrap:wrap;}
-}
 </style>
 </head>
 <body>
